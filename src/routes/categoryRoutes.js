@@ -8,4 +8,6 @@ const categoryController = require('../controllers/categoryController');
 
 categoryRouter.post('/', tokenExistAndValid, categoryController.createCategory);
 
+categoryRouter.get('/', tokenExistAndValid, categoryController.getAllCategories);
+
 module.exports = categoryRouter;
