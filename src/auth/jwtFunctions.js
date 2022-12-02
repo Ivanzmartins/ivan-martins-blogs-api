@@ -12,6 +12,16 @@ const createToken = (userWithoutPassword) => {
   return token;
 };
 
+const validateToken = (authorization) => {
+  try {
+  const payload = jwt.verify(authorization, secret);
+  return payload;
+  } catch (error) {
+    return { isError: error };
+  }
+};
+
 module.exports = {
   createToken,
+  validateToken,
 };
