@@ -1,8 +1,6 @@
-const jwt = require('jsonwebtoken');
-
 const { User } = require('../models');
 
-const secret = process.env.JWT_SECRET;
+const { createToken } = require('../auth/jwtFunctions');
 
 const isBodyValid = (email, password) => email && password;
 
@@ -12,12 +10,11 @@ const loginUser = async (email, password) => {
       return { status: 400, message: 'Some required fields are missing' };
     }
     const user = await User.findOne({ where: { email } });
-    if (!user) {
+    if (!user || user.password !== password) {
       return { status: 400, message: 'Invalid fields' };
     }
-    const jwtConfig = { expiresIn: '7d', algorithm: 'HS256' };
     const { password: _password, ...userWithoutPassword } = user.dataValues;
-    const token = jwt.sign({ data: userWithoutPassword }, secret, jwtConfig);
+    const token = createToken(userWithoutPassword);
     return { status: 200, token };
   } catch (error) {
     return { status: 500, message: error.message };
