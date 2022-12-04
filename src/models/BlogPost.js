@@ -25,12 +25,11 @@ const BlogPost = (sequelize, DataTypes) => {
   {
     timestamps: false,
     underscored: true,
-    // tableName: 'blog_post'
   }
   );
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, {
-      foreignKey: 'userId', as: 'blog_posts'
+      foreignKey: 'userId', as: 'user'
     })
   };
   return BlogPost;
