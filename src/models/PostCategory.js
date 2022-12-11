@@ -1,5 +1,3 @@
-const BlogPost = require('./BlogPost');
-const Category = require('./Category');
 
 const PostCategory = (sequelize, DataTypes) => {
   const PostCategory = sequelize.define('PostCategory', {
@@ -19,6 +17,7 @@ const PostCategory = (sequelize, DataTypes) => {
     {
       timestamps: false,
       underscored: true,
+      tableName: 'posts_categories',
     });
   PostCategory.associate = (models) => {
     models.BlogPost.belongsToMany(models.Category, {
@@ -28,7 +27,7 @@ const PostCategory = (sequelize, DataTypes) => {
       otherKey: 'categoryId',
     });
     models.Category.belongsToMany(models.BlogPost, {
-      as: 'posts',
+      as: 'blogPost',
       through: 'PostCategory',
       foreignKey: 'categoryId',
       otherKey: 'postId',

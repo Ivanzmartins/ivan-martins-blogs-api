@@ -1,5 +1,3 @@
-// const { User } = require('../models');
-
 const { validateToken } = require('../auth/jwtFunctions');
 
 const tokenExistAndValid = (req, res, next) => {
@@ -13,5 +11,3 @@ const tokenExistAndValid = (req, res, next) => {
 };
 
 module.exports = { tokenExistAndValid };
-
-// usar o tokenExistAndValid no userRouter 
